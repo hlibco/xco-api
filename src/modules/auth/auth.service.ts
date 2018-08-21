@@ -10,6 +10,7 @@ import { ConfigService } from '../global/config.service';
 import { Credential } from './credential.entity';
 import { CredentialDto } from './dto/credential.dto';
 import { User } from '../user/user.entity';
+import * as bcrypt from 'bcrypt';
 
 export interface TokenPayload {
   id: number;
@@ -40,12 +41,14 @@ export class AuthService implements OnModuleInit {
     const credential = await this.credentialRepository.findOne({
       where: {
         deletedAt: null,
-        ...credentialDto,
+        username: credentialDto.username,
       },
     });
 
     if (credential && credential.user && credential.user.deletedAt === null) {
-      return credential.user;
+      if (bcrypt.compareSync(credentialDto.password, credential.password)) {
+        return credential.user;
+      }
     }
 
     throw new UnauthorizedException('Invalid credentials.');

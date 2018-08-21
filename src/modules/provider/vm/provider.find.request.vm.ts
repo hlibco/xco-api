@@ -1,5 +1,6 @@
-import { QueryDto } from '../dto/query.dto';
+import { BadRequestException } from '@nestjs/common';
 import * as Joi from 'joi';
+import { QueryDto } from '../dto/query.dto';
 
 export class ProviderFindRequestVm {
   public readonly maxDischarges: number;
@@ -42,6 +43,12 @@ export class ProviderFindRequestVm {
       fields: Joi.string(),
     });
 
-    Joi.assert(query, schema);
+    const result = Joi.validate(query, schema);
+    if (result.error) {
+      throw new BadRequestException(
+        'Invalid query params.',
+        result.error.details,
+      );
+    }
   }
 }

@@ -1,6 +1,13 @@
 # XCO-API
 
+## Requirements
+
+1. Git
+2. Yarn
+
 ## Installation
+
+Checkout this project and follow the steps below inside the projects' folder.
 
 1. Install dependencies:
 
@@ -75,6 +82,57 @@ If the query `fields` does not exist, all available properties will be returned.
 
 ---
 
+## Technical Choices
+
+### Which Framework to Use?
+
+| Framework  | Pros                                  | Cons                  |
+|------------|---------------------------------------|-----------------------|
+| None       | Flexibility                           | Reinvent the wheel    |
+| Express    | Flexibility, Stable, Community        | Not designed for APIs |
+| Micro.js   | Small # of dependencies, Quick to use | Support               |
+| Restify    | Designed for APIs                     | Learning curve        |
+| Hapi       | Designed for APIs, Community          | Complexity            |
+| NestJS (*) | Designed for APIs, Development Speed  | Community             |
+
+Other frameworks such as Koa and Fastify were put aside and not considered in the evaluation.
+
+My choice was `NestJS`. Mostly because it enforces great architecture and follows good design principles.
+
+
+### How to Authenticate Our Users?
+
+| Method                          | Pros                         | Cons                   |
+|---------------------------------|------------------------------|------------------------|
+| Login/Password (*)              | Simplicity                   | Vunerablility          |
+| OAuth (Facebook/Twitter/Github) | Delegate password management | Dependency, Complexity |
+| SAML                            | Flexibility                  | Complexity             |
+| SMS Passwordless                | Security                     | Dependency, Complexity |
+
+
+Given the time constraint and the basic needs of the requirements, I decided to not over-engineer the authentication process and choose the `Login/Password` strategy.
+
+#### Where to Store the Credentials?
+
+A common approach is to store the `username` and `password` in the `users` table. However, it comes with some drawbacks:
+
+- It's not extensible. If the requirements change and multiple identity providers are accepted, a major refactory in the application will be required.
+
+- It's hard to keep track of changes in the credentials.
+
+I decided to have a table called `credentials` dedicated to store `username` and `password` for each user in a relationship of **1:n**. By doing this, a minor refactory will take place when new identity providers are added.
+
+
+### Query Parameters Validation
+
+It's a good practice to validate all input. However, there is a room for dual interpretation in here.
+
+Should we consider `input` the data that will be used by the system or the data presented in the incoming request?
+
+I'm again trying to not over-engineer this project and taking a balanced approach. For example, the request `/providers?country=us` **will throw** a *400 Bad Request*, since `country` is not a valid query param. However, the request `/providers?fields=country` **will not** throw a *422 Unprocessable Entity*.
+
+---
+
 ## Misc
 
 ### Exceptions
@@ -83,11 +141,10 @@ The `/providers` endpoint does not throw a `Bad Request` in case the client send
 
 ### Pagination
 
-It is not implemented.
+Not implemented yet.
 
 ## TO DO
 
-- Encrypt password in the credentials table
 - Add e2e tests
 - Add unit tests
 - Add pagination
@@ -97,3 +154,4 @@ It is not implemented.
 - Setup DNS (and subdomain)
 - Create migrations
 - Seed the DB with the test user
+- Create Heroku Dynos (api and app)

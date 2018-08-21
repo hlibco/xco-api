@@ -30,7 +30,7 @@ LOCK TABLES `credential` WRITE;
 
 INSERT INTO `credential` (`id`, `created_at`, `updated_at`, `deleted_at`, `username`, `password`, `user_id`)
 VALUES
-	(1,'2018-08-21 00:00:00','2018-08-21 00:00:00',NULL,'pablo','picasso',1);
+	(1,'2018-08-21 00:00:00','2018-08-21 00:00:00',NULL,'pablo','$2b$05$nC49BxJQmCe0nCtfjtlYEu8VZaibmB.uJJGgEzMNak/KsIXUcDCyW',1);
 
 /*!40000 ALTER TABLE `credential` ENABLE KEYS */;
 UNLOCK TABLES;
