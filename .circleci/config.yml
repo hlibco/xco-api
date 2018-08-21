@@ -1,0 +1,128 @@
+version: 2
+
+defaults_environment_node: &defaults_environment_node
+  environment:
+    DEBUG: xco:*
+    DEBUG_COLORS: true
+    DATABASE_HOST: localhost
+    DATABASE_PORT: 3306
+    DATABASE_NAME: circle_test
+    DATABASE_USERNAME: ubuntu
+    DATABASE_PASSWORD: ubuntu
+
+defaults_environment_db: &defaults_environment_db
+  environment:
+    MYSQL_ROOT_HOST: '%'
+    MYSQL_DATABASE: circle_test
+    MYSQL_USER: ubuntu
+    MYSQL_PASSWORD: ubuntu
+    MYSQL_ROOT_PASSWORD: ubuntu
+
+defaults_node: &defaults_node
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:10.2.1
+      <<: *defaults_environment_node
+
+defaults_node_with_db: &defaults_node_with_db
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:10.2.1
+      <<: *defaults_environment_node
+
+    - image: circleci/mariadb:10.2
+      <<: *defaults_environment_db
+
+jobs:
+  build:
+    <<: *defaults_node
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          key: dependencies-cache-v1-{{ checksum "yarn.lock" }}
+      - run:
+          name: Yarn version
+          command: yarn --version
+      - run:
+          name: Install dependencies
+          command: yarn install --dev
+      - run:
+          name: Lint application
+          command: yarn lint
+      - run:
+          name: Build application
+          command: yarn build
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependencies-cache-v1-{{ checksum "yarn.lock" }}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./
+
+  test:
+    <<: *defaults_node_with_db
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run coverage tests
+          environment:
+            NODE_ENV: test
+            DEBUG: xco:*
+            DEBUG_COLORS: true
+          command: yarn test:cov
+      - run:
+          name: Waiting for Mysql to be ready
+          command: |
+            dockerize -wait tcp://localhost:3306 -timeout 1m
+      - run:
+          name: Run migrations
+          command: echo "Running migrations..."
+      - run:
+          name: Run seed
+          command: echo "Seeding the database..."
+      - run:
+          name: Run e2e tests
+          environment:
+            NODE_ENV: test
+            DEBUG: xco:*
+            DEBUG_COLORS: true
+          command: yarn test:e2e
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+            - package.json
+            - yarn.lock
+
+  deploy:
+    <<: *defaults_node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Deploy to Heroku
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git push --force https://heroku:$HEROKU_API_KEY@git.heroku.com/xco-api.git HEAD:refs/heads/master || true
+              sleep 8  # sleep for 8 seconds to wait for dynos
+            fi
+
+workflows:
+  version: 2
+  build-test-deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master

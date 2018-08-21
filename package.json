@@ -10,9 +10,12 @@
     "build": "rm -rf dist && tsc",
     "start": "nodemon",
     "start:prod": "node dist/main.js",
+    "db:migration": "echo \"Running migration...\"",
+    "db:seed": "echo \"Seeding...\"",
     "test": "jest",
     "test:cov": "jest --coverage",
-    "test:e2e": "jest --config ./e2e/jest-e2e.json --detectOpenHandles"
+    "test:e2e": "jest --config ./e2e/jest-e2e.json --detectOpenHandles",
+    "circleci": "circleci config validate -c .circleci/config.yml"
   },
   "husky": {
     "hooks": {
