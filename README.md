@@ -7,7 +7,7 @@
 
 ## Installation
 
-Checkout this project and follow the steps below inside the projects' folder.
+Checkout this project and follow the steps below inside the project folder.
 
 1. Install dependencies:
 
@@ -122,6 +122,20 @@ A common approach is to store the `username` and `password` in the `users` table
 
 I decided to have a table called `credentials` dedicated to store `username` and `password` for each user in a relationship of **1:n**. By doing this, a minor refactory will take place when new identity providers are added.
 
+#### Authorization - JSON Web Token (JWT)
+
+To get access to the private route `/providers`, the client needs to exchange their credentials (Username/Password) to an authorization token in the route `/auth/token`.
+
+This token needs to be included in the header of the requests to private routes as described below.
+
+```
+{
+  headers: {
+    Authorization: Bearer <token>
+  }
+}
+```
+
 
 ### Query Parameters Validation
 
@@ -139,19 +153,28 @@ I'm again trying to not over-engineer this project and taking a balanced approac
 
 The `/providers` endpoint does not throw a `Bad Request` in case the client sends query params not documented. However, it does throw a `Bad Request` if the documented query params are received with invalid data.
 
+### Sorting
+
+All items in `/providers` are sorted by **name ASC**.
+
 ### Pagination
 
-Not implemented yet.
+Not implemented yet. There is hard-coded limit to **100** items in the `/providers` route.
+
 
 ## TO DO
 
+- Buy domain
+- Create Heroku Dynos (api and app)
+- Setup DNS (and subdomain)
+
 - Add e2e tests
 - Add unit tests
-- Add pagination
-- Add CI/CD
-- Deploy to Heroku
-- Buy domain
-- Setup DNS (and subdomain)
+
 - Create migrations
 - Seed the DB with the test user
-- Create Heroku Dynos (api and app)
+
+- Add CI/CD
+- Deploy to Heroku
+
+- Add pagination

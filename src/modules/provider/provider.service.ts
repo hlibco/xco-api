@@ -42,6 +42,9 @@ export class ProviderService {
       });
     });
 
-    return query.orderBy('provider_name').getMany();
+    return query
+      .orderBy('provider_name')
+      .limit(100)
+      .getMany();
   }
 }
