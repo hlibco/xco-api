@@ -87,6 +87,7 @@ It is not implemented.
 
 ## TO DO
 
+- Encrypt password in the credentials table
 - Add e2e tests
 - Add unit tests
 - Add pagination
