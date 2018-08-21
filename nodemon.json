@@ -1,0 +1,12 @@
+{
+  "watch": ["src"],
+  "ext": "ts",
+  "ignore": [".git", "node_modules", "src/**/*.spec.ts"],
+  "verbose": true,
+  "env": {
+    "NODE_ENV": "development",
+    "DEBUG": "xco:*",
+    "DEBUG_COLORS": true
+  },
+  "exec": "node --inspect=5000 -r ts-node/register src/main.ts"
+}
