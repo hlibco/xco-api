@@ -17,7 +17,8 @@
     "test": "jest",
     "test:cov": "jest --coverage",
     "test:e2e": "jest --config ./e2e/jest-e2e.json --detectOpenHandles",
-    "circleci": "circleci config validate -c .circleci/config.yml"
+    "circleci": "circleci config validate -c .circleci/config.yml",
+    "deploy": "git push heroku master"
   },
   "husky": {
     "hooks": {

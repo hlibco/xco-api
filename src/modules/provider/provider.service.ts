@@ -1,8 +1,8 @@
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Provider } from './provider.entity';
-import { ProviderFindRequestVm } from './vm';
+import { ProviderSummaryTopDRG } from './provider-summary-top-drg.entity';
+import { SummaryRequestVm } from './vm';
 
 type Filters = Map<string, Filter[]>;
 type Filter = Array<string | number | undefined>;
@@ -10,13 +10,19 @@ type Filter = Array<string | number | undefined>;
 @Injectable()
 export class ProviderService {
   constructor(
-    @InjectRepository(Provider)
-    private readonly providerRepository: Repository<Provider>,
+    @InjectRepository(ProviderSummaryTopDRG)
+    private readonly providerSummaryTopDRGRepository: Repository<
+      ProviderSummaryTopDRG
+    >,
   ) {}
 
-  async find(criteria?: ProviderFindRequestVm): Promise<Provider[]> {
-    const query = this.providerRepository.createQueryBuilder();
+  async summaryForTheTop100DRG(
+    criteria?: SummaryRequestVm,
+  ): Promise<ProviderSummaryTopDRG[]> {
+    const query = this.providerSummaryTopDRGRepository.createQueryBuilder();
     query.where('deleted_at IS NULL');
+    // Only the Top 100 DRGs
+    query.andWhere(`top_drg = 100`);
 
     const filters: Filters = new Map();
     filters.set('total_discharges', [
@@ -46,7 +52,7 @@ export class ProviderService {
 
     const result = await query
       .orderBy('provider_name')
-      .limit(100)
+      .limit(50)
       .getMany();
     return result;
   }

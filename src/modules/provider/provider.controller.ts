@@ -13,7 +13,7 @@ import {
 } from '@nestjs/swagger';
 import { AuthInterceptor } from '../auth/interceptors/auth.interceptor';
 import { ProviderService } from './provider.service';
-import { ProviderFindRequestVm, ProviderFindResponseVm } from './vm';
+import { SummaryRequestVm, SummaryResponseVm } from './vm';
 import { QueryDto } from './dto/query.dto';
 
 @ApiUseTags('providers')
@@ -24,24 +24,25 @@ export class ProviderController {
 
   @Get()
   @UseInterceptors(AuthInterceptor)
-  @ApiOperation({ title: 'List All Providers' })
+  @ApiOperation({
+    title:
+      'Provider Summary for the Top 100 Diagnosis Related Groups (DRG) - Limited to 50 records',
+  })
   @ApiResponse({
     status: HttpStatus.OK,
-    description: 'Providers Found.',
+    description: 'Provider Sumary Found',
     isArray: true,
-    type: ProviderFindResponseVm,
+    type: SummaryResponseVm,
   })
-  async find(@Query() query: QueryDto): Promise<ProviderFindResponseVm[]> {
-    console.log(query);
-    // const sleep = async (ms = 15000) => {
-    //   return new Promise(resolve => setTimeout(resolve, ms));
-    // };
-    // await sleep();
-
-    const criteria = new ProviderFindRequestVm(query);
-    const providers = await this.providerService.find(criteria);
+  async summaryForTheTop100DRG(
+    @Query() query: QueryDto,
+  ): Promise<SummaryResponseVm[]> {
+    const criteria = new SummaryRequestVm(query);
+    const providers = await this.providerService.summaryForTheTop100DRG(
+      criteria,
+    );
     return providers.map(
-      provider => new ProviderFindResponseVm(provider, query.fields),
+      provider => new SummaryResponseVm(provider, query.fields),
     );
   }
 }

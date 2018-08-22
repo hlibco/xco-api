@@ -1,2 +1,2 @@
-export { ProviderFindRequestVm } from './provider.find.request.vm';
-export { ProviderFindResponseVm } from './provider.find.response.vm';
+export { SummaryRequestVm } from './summary.request.vm';
+export { SummaryResponseVm } from './summary.response.vm';

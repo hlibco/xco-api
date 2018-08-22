@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProviderController } from './provider.controller';
 import { ProviderService } from './provider.service';
-import { Provider } from '../provider/provider.entity';
+import { ProviderSummaryTopDRG } from '../provider/provider-summary-top-drg.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Provider])],
+  imports: [TypeOrmModule.forFeature([ProviderSummaryTopDRG])],
   controllers: [ProviderController],
   providers: [ProviderService],
   exports: [ProviderService],

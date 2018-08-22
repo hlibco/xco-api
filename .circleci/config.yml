@@ -80,11 +80,15 @@ jobs:
           command: |
             dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
-          name: Run migrations
-          command: echo "Running migrations..."
+          name: Seed the database
+          command: echo "Importing data..."
       - run:
-          name: Run seed
-          command: echo "Seeding the database..."
+          name: Run coverage test
+          environment:
+            NODE_ENV: test
+            DEBUG: xco:*
+            DEBUG_COLORS: true
+          command: yarn test:cov
       - run:
           name: Run e2e tests
           environment:
