@@ -34,6 +34,13 @@ export class ConfigService implements OnModuleInit {
         const local = await dotenv.parse(fs.readFileSync('.env'));
         envstore.merge(local);
       },
+      async test() {
+        if (process.env.CI) {
+          return;
+        }
+        const local = await dotenv.parse(fs.readFileSync('.env'));
+        envstore.merge(local);
+      },
     });
 
     // Setup dynamic configuration

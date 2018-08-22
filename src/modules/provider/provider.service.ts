@@ -31,20 +31,23 @@ export class ProviderService {
       ['>=', criteria.minAverageMedicarePayments],
       ['<=', criteria.maxAverageMedicarePayments],
     ]);
-    filters.set('state', [['=', criteria.state]]);
+    filters.set('provider_state', [['=', criteria.state]]);
 
     filters.forEach((items, field) => {
       items.forEach(item => {
         const [operator, value] = item;
         if (typeof value !== 'undefined') {
-          query.andWhere(`${field} ${operator} :value`, { value });
+          query.andWhere(`${field} ${operator} :${field}`, {
+            [`${field}`]: value,
+          });
         }
       });
     });
 
-    return query
+    const result = await query
       .orderBy('provider_name')
       .limit(100)
       .getMany();
+    return result;
   }
 }

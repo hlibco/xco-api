@@ -18,7 +18,7 @@ export class AuthController {
   @Post('token')
   @ApiOperation({ title: 'Issue an authorization token' })
   @ApiResponse({
-    status: HttpStatus.OK,
+    status: HttpStatus.CREATED,
     type: AuthorizationResponseVm,
     description: 'Authorization token',
   })

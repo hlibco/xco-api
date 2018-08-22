@@ -32,6 +32,12 @@ export class ProviderController {
     type: ProviderFindResponseVm,
   })
   async find(@Query() query: QueryDto): Promise<ProviderFindResponseVm[]> {
+    console.log(query);
+    // const sleep = async (ms = 15000) => {
+    //   return new Promise(resolve => setTimeout(resolve, ms));
+    // };
+    // await sleep();
+
     const criteria = new ProviderFindRequestVm(query);
     const providers = await this.providerService.find(criteria);
     return providers.map(

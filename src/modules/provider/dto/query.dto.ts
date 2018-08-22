@@ -11,21 +11,34 @@ export class QueryDto {
   })
   readonly min_discharges?: number;
 
-  @ApiModelPropertyOptional({ description: 'The maximum Average Covered Charges' })
+  @ApiModelPropertyOptional({
+    description: 'The maximum Average Covered Charges',
+  })
   readonly max_average_covered_charges?: number;
 
-  @ApiModelPropertyOptional({ description: 'The minimum Average Covered Charges' })
+  @ApiModelPropertyOptional({
+    description: 'The minimum Average Covered Charges',
+  })
   readonly min_average_covered_charges?: number;
 
-  @ApiModelPropertyOptional({ description: 'The maximum Average Medicare Payment' })
+  @ApiModelPropertyOptional({
+    description: 'The maximum Average Medicare Payment',
+  })
   readonly max_average_medicare_payments?: number;
 
-  @ApiModelPropertyOptional({ description: 'The minimum Average Medicare Payment' })
+  @ApiModelPropertyOptional({
+    description: 'The minimum Average Medicare Payment',
+  })
   readonly min_average_medicare_payments?: number;
 
-  @ApiModelPropertyOptional({ description: 'The exact state that the provider is from' })
+  @ApiModelPropertyOptional({
+    description: 'The exact state that the provider is from',
+  })
   readonly state?: string;
 
-  @ApiModelPropertyOptional({ description: 'Comma separated list of attributes allowed in the response', example: 'name,city,state,streetAddress' })
+  @ApiModelPropertyOptional({
+    description: 'Comma separated list of attributes allowed in the response',
+    example: 'name,city,state,streetAddress',
+  })
   readonly fields?: string;
 }

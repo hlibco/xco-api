@@ -97,7 +97,9 @@ If the query `fields` does not exist, all available properties will be returned.
 
 Other frameworks such as Koa and Fastify were put aside and not considered in the evaluation.
 
-My choice was `NestJS`. Mostly because it enforces great architecture and follows good design principles.
+My choice was `NestJS`. Mostly because it enforces great architecture, follows good design principles and I'd use this project to learn a new framework.
+
+By the way, NestJS uses Express under the hood. It means we get all the benefits of Express, without the down sides.
 
 
 ### How to Authenticate Our Users?
@@ -147,6 +149,21 @@ I'm again trying to not over-engineer this project and taking a balanced approac
 
 ---
 
+## Tests
+
+Tests play an important role in the software development world. It doesn't enforce program correctness, however, it gives confidence to the people working on a system that a newly introduced change has low chances to break other parts.
+
+This project has **1 unit test** [format.spec.ts]('./src/utils/format.spec.ts') and **2 integration tests** [/e2e]('./e2e')
+
+The integration tests in this case ensure that:
+
+- A registered user gets an authorization token
+- An unregistered user doesn't get an authorization token
+- A request to `/providers` with a valid authorization, succeeds
+- A request to `/providers` without an authorization or invalid authorization, fails
+
+---
+
 ## Misc
 
 ### Exceptions
@@ -164,12 +181,9 @@ Not implemented yet. There is hard-coded limit to **100** items in the `/provide
 
 ## TO DO
 
-- Buy domain
 - Create Heroku Dynos (api and app)
-- Setup DNS (and subdomain)
 
-- Add e2e tests
-- Add unit tests
+- Setup DNS (and subdomain)
 
 - Create migrations
 - Seed the DB with the test user

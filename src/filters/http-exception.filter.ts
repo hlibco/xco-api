@@ -1,23 +1,53 @@
-import { ExceptionFilter, ArgumentsHost, HttpStatus } from '@nestjs/common';
+import {
+  ExceptionFilter,
+  ArgumentsHost,
+  HttpStatus,
+  Catch,
+  HttpException,
+} from '@nestjs/common';
 
+@Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
-  catch(error: any, host: ArgumentsHost) {
+  catch(err: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const req = ctx.getRequest();
     const res = ctx.getResponse();
-    if (error.statusCode === HttpStatus.UNAUTHORIZED) {
-      if (typeof error.response !== 'string') {
-        error.response.message =
-          error.response.message ||
+    const statusCode = err instanceof HttpException ? err.getStatus() : 500;
+    // @TODO Report exception
+
+    let error = err.name;
+    let message = err.message;
+    let errors;
+
+    if (
+      typeof err.response !== 'string' &&
+      typeof err.response !== 'undefined'
+    ) {
+      // Overwrite error
+      error = err.response.error || err.response.name || error;
+
+      // Overwrite message
+      message = err.response.message || message;
+
+      if (statusCode === HttpStatus.UNAUTHORIZED) {
+        message =
+          err.response.message ||
           'You do not have permission to access this resource';
       }
+
+      // Overwrite errors
+      errors = err.response.errors;
     }
 
-    res.status(error.getStatus()).json({
-      statusCode: error.getStatus(),
-      error: error.response.name || error.name,
-      message: error.response.message || error.message,
-      errors: error.response.errors || null,
+    if (statusCode === HttpStatus.INTERNAL_SERVER_ERROR) {
+      message = error = 'Internal Server Error';
+    }
+
+    return res.status(statusCode).json({
+      statusCode,
+      error,
+      message,
+      errors,
       timestamp: new Date().toISOString(),
       path: req ? req.url : null,
     });

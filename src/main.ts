@@ -1,10 +1,9 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cors from 'cors';
 import { AppModule } from './modules/app.module';
-// import { HttpExceptionFilter } from './filters/http-exception.filter';
 import { ConfigService } from './modules/global/config.service';
+
 const debug = require('debug')('xco:main');
 
 async function bootstrap() {
@@ -41,12 +40,6 @@ async function bootstrap() {
   app.use('/docs/swagger.json', (_req, res) => {
     res.send(swaggerDoc);
   });
-
-  // Pipes
-  app.useGlobalPipes(new ValidationPipe());
-
-  // Filters
-  // app.useGlobalFilters(new HttpExceptionFilter());
 
   await app.listen(config.port);
   debug(`Application is running at ${config.uri}`);

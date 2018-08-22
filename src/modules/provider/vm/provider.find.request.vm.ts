@@ -45,10 +45,7 @@ export class ProviderFindRequestVm {
 
     const result = Joi.validate(query, schema);
     if (result.error) {
-      throw new BadRequestException(
-        'Invalid query params.',
-        result.error.details,
-      );
+      throw new BadRequestException(result.error.details);
     }
   }
 }
