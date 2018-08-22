@@ -3,7 +3,7 @@ import { IsEmail } from 'class-validator';
 import { GlobalEntity } from '../global/global.entity';
 import { Credential } from '../auth/credential.entity';
 
-@Entity()
+@Entity({ name: 'users' })
 export class User extends GlobalEntity {
   @OneToMany(() => Credential, credential => credential.user)
   @JoinColumn()

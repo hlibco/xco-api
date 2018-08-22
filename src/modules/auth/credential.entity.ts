@@ -2,7 +2,7 @@ import { Entity, Column, JoinColumn, ManyToOne } from 'typeorm';
 import { GlobalEntity } from '../global/global.entity';
 import { User } from '../user/user.entity';
 
-@Entity()
+@Entity({ name: 'credentials' })
 export class Credential extends GlobalEntity {
   @ManyToOne(() => User, user => user.credentials, {
     nullable: false,

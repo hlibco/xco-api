@@ -178,6 +178,23 @@ All items in `/providers` are sorted by **name ASC**.
 
 Not implemented yet. There is hard-coded limit to **100** items in the `/providers` route.
 
+---
+
+## Development
+
+### Migrations
+
+To generate the migration based on the entities:
+
+```
+yarn migration:generate --name <name>
+```
+
+To run the migrations:
+
+```
+yarn migration:run
+```
 
 ## TO DO
 
@@ -192,3 +209,4 @@ Not implemented yet. There is hard-coded limit to **100** items in the `/provide
 - Deploy to Heroku
 
 - Add pagination
+

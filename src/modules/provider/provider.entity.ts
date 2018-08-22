@@ -1,8 +1,14 @@
 import { Entity, Column } from 'typeorm';
 import { GlobalEntity } from '../global/global.entity';
 
-@Entity()
+@Entity({ name: 'providers' })
 export class Provider extends GlobalEntity {
+  @Column({
+    nullable: true,
+    name: 'provider_id',
+  })
+  providerId: number;
+
   @Column({
     nullable: true,
     name: 'drg_definition',

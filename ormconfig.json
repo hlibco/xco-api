@@ -1,0 +1,16 @@
+{
+  "type": "mariadb",
+  "host": "localhost",
+  "port": 3306,
+  "username": "root",
+  "password": "root",
+  "database": "xco",
+  "synchronize": false,
+  "logging": true,
+  "migrationsTableName": "migrations",
+  "entities": ["src/**/*.entity.ts"],
+  "migrations": ["src/migrations/**/*.ts"],
+  "cli": {
+    "migrationsDir": "src/migrations"
+  }
+}
