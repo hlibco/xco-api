@@ -1,7 +1,7 @@
 {
   "name": "xco-api",
   "version": "0.1.0",
-  "description": "Backend of the XCO Search project",
+  "description": "Back-end of the XCO Search project",
   "author": "Felipe Hlibco <hlibco@gmail.com>",
   "license": "MIT",
   "scripts": {

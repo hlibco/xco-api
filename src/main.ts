@@ -19,7 +19,7 @@ async function bootstrap() {
   // Swagger
   const swaggerOptions = new DocumentBuilder()
     .setTitle('XCO API')
-    .setDescription('Backend of the XCO Search project')
+    .setDescription('Back-end of the XCO Search project')
     .setVersion('1.0')
     .setHost(config.uri.split('//')[1])
     .setSchemes(config.environment === 'development' ? 'http' : 'https')

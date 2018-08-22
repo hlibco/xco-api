@@ -1,48 +1,48 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiModelPropertyOptional } from '@nestjs/swagger';
 import { ProviderSummaryTopDRG } from '../provider-summary-top-drg.entity';
 import { toCamelCase } from '../../../utils/format';
 
 export class SummaryResponseVm {
-  @ApiModelProperty()
+  @ApiModelPropertyOptional()
   public readonly id?: number;
 
-  @ApiModelProperty()
+  @ApiModelPropertyOptional()
   public readonly drgDefinition?: string;
 
-  @ApiModelProperty()
+  @ApiModelPropertyOptional()
   public readonly name?: string;
 
-  @ApiModelProperty()
+  @ApiModelPropertyOptional()
   public readonly streetAddress?: string;
 
-  @ApiModelProperty()
+  @ApiModelPropertyOptional()
   public readonly city?: string;
 
-  @ApiModelProperty()
+  @ApiModelPropertyOptional()
   public readonly state?: string;
 
-  @ApiModelProperty()
+  @ApiModelPropertyOptional()
   public readonly zipCode?: string;
 
-  @ApiModelProperty()
+  @ApiModelPropertyOptional()
   public readonly hospitalReferralRegionDescription?: string;
 
-  @ApiModelProperty()
+  @ApiModelPropertyOptional()
   public readonly totalDischarges?: number;
 
-  @ApiModelProperty()
+  @ApiModelPropertyOptional()
   public readonly averageCostCharges?: string;
 
-  @ApiModelProperty()
+  @ApiModelPropertyOptional()
   public readonly averageTotalPayments?: string;
 
-  @ApiModelProperty()
+  @ApiModelPropertyOptional()
   public readonly averageMedicarePayments?: string;
 
-  @ApiModelProperty({ type: String, format: 'date-time' })
+  // @ApiModelPropertyOptional({ type: String, format: 'date-time' })
   public readonly createdAt?: Date;
 
-  @ApiModelProperty({ type: String, format: 'date-time' })
+  // @ApiModelPropertyOptional({ type: String, format: 'date-time' })
   public readonly updatedAt?: Date;
 
   constructor(provider: ProviderSummaryTopDRG, fields?: string) {

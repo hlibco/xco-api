@@ -2,9 +2,9 @@
 
 > This API exposes a private route to filter and return the Provider Summary of the Top 100 Diagnosis Related Groups.
 
-API Url: [https://api.xcoproject.com/](https://api.xcoproject.com/)
+API Url: [http://api.xcoproject.com/](http://api.xcoproject.com/)
 
-API Documentation: [https://api.xcoproject.com/swagger](https://api.xcoproject.com/swagger)
+API Documentation: [http://api.xcoproject.com/swagger](http://api.xcoproject.com/swagger)
 
 ## Requirements
 
