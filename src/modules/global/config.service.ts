@@ -20,7 +20,7 @@ export class ConfigService implements OnModuleInit {
   environment: string;
 
   uri: string;
-  host: string;
+  hostname: string;
   port: number;
 
   db: DbConfig = {} as DbConfig;
@@ -52,8 +52,8 @@ export class ConfigService implements OnModuleInit {
       },
       prop => envstore.integer(prop, 3000),
     );
-    this.host = envstore.pick(
-      'HOST',
+    this.hostname = envstore.pick(
+      'HOSTNAME',
       {
         production: prop => envstore.string(prop, 'api.xcosearch.com'),
       },
@@ -61,8 +61,8 @@ export class ConfigService implements OnModuleInit {
     );
     this.uri = envstore.pick(
       'URI',
-      { production: () => `https://${this.host}` },
-      () => `http://${this.host}:${this.port}`,
+      { production: () => `https://${this.hostname}` },
+      () => `http://${this.hostname}:${this.port}`,
     );
 
     // Database
