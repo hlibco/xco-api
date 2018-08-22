@@ -41,8 +41,8 @@ describe('ProviderController (e2e)', () => {
     await request(server)
       .get('/providers')
       .auth(authorization, { type: 'bearer' })
-      .expect(HttpStatus.OK);
-    // .then(({ body }) => expect(body.authorization).toBeDefined());
+      .expect(HttpStatus.OK)
+      .then(({ body }) => expect(body.length).toBeGreaterThan(0));
   });
 
   afterAll(async () => {
