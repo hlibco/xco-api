@@ -214,6 +214,10 @@ Why did I create a database table with such a long name? `provider_summary_for_t
 2. It's flexible enough to store the Provider Summary for the *Top K* Diagnosis Related Groups
 *(The field **top_drg** identifies the Top K)*
 
+### HTTPS & SSL
+
+To add an SSL Certificate to the server serving the API was out-of-scope. An alternative solution would be using Cloudflare to manage the DNS and get the benefit of their Free SSL. However, DNS management was also out-of-scope.
+
 ---
 
 ## Misc
