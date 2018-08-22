@@ -2,4 +2,4 @@ build:
   languages:
     - node
 run:
-  web: yarn build && yarn start:prod
+  web: yarn install --dev && yarn build && yarn start:prod
