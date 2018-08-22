@@ -67,7 +67,7 @@ export class ConfigService implements OnModuleInit {
 
     // Database
     this.db.host = envstore.string('DATABASE_HOST');
-    this.db.port = envstore.integer('DATABASE_PORT');
+    this.db.port = envstore.integer('DATABASE_PORT', 3306);
     this.db.database = envstore.string('DATABASE_NAME');
     this.db.username = envstore.string('DATABASE_USERNAME');
     this.db.password = envstore.string('DATABASE_PASSWORD');

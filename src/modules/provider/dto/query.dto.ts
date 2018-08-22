@@ -17,17 +17,17 @@ export class QueryDto {
   readonly max_average_covered_charges?: number;
 
   @ApiModelPropertyOptional({
-    description: 'The minimum Average Covered Charges',
+    description: 'The minimum Average Covered Charges (integer - in cents)',
   })
   readonly min_average_covered_charges?: number;
 
   @ApiModelPropertyOptional({
-    description: 'The maximum Average Medicare Payment',
+    description: 'The maximum Average Medicare Payment (integer - in cents)',
   })
   readonly max_average_medicare_payments?: number;
 
   @ApiModelPropertyOptional({
-    description: 'The minimum Average Medicare Payment',
+    description: 'The minimum Average Medicare Payment (integer - in cents)',
   })
   readonly min_average_medicare_payments?: number;
 

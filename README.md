@@ -199,14 +199,12 @@ yarn migration:run
 ## TO DO
 
 - Create Heroku Dynos (api and app)
-
 - Setup DNS (and subdomain)
-
-- Create migrations
-- Seed the DB with the test user
 
 - Add CI/CD
 - Deploy to Heroku
 
-- Add pagination
+- Create migrations
+- Seed the DB with the test user
 
+- Add pagination

@@ -31,13 +31,13 @@ export class ProviderFindResponseVm {
   public readonly totalDischarges?: number;
 
   @ApiModelProperty()
-  public readonly averageCostCharges?: number;
+  public readonly averageCostCharges?: string;
 
   @ApiModelProperty()
-  public readonly averageTotalPayments?: number;
+  public readonly averageTotalPayments?: string;
 
   @ApiModelProperty()
-  public readonly averageMedicarePayments?: number;
+  public readonly averageMedicarePayments?: string;
 
   @ApiModelProperty({ type: String, format: 'date-time' })
   public readonly createdAt?: Date;
@@ -46,16 +46,42 @@ export class ProviderFindResponseVm {
   public readonly updatedAt?: Date;
 
   constructor(provider: Provider, fields?: string) {
-    if (typeof fields === 'undefined') {
-      return provider;
-    }
     const clone = { ...provider };
-    const props = fields.split(',').map(toCamelCase) || [];
+    const props = fields
+      ? String(fields)
+          .split(',')
+          .map(toCamelCase)
+      : [];
+    const asMoney = [
+      'averageCostCharges',
+      'averageTotalPayments',
+      'averageMedicarePayments',
+    ];
 
     Object.keys(clone).forEach(key => {
-      if (!!~props.indexOf(key)) {
-        this[key] = clone[key];
+      if (!!~props.indexOf(key) || props.length === 0) {
+        let val = clone[key];
+
+        if (!!~asMoney.indexOf(key)) {
+          val = this.toMoney(val);
+        }
+
+        this[key] = val;
       }
+    });
+  }
+
+  /**
+   * Convert an integer number represeting cents to a USD money format
+   *
+   * @param {number} val Integer represeting number of cents
+   * @returns {string} Money formtted string e.g.: $1,208.35
+   * @memberof ProviderFindResponseVm
+   */
+  toMoney(val: number): string {
+    return (val / 100).toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
     });
   }
 }

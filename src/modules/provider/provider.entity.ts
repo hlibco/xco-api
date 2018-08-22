@@ -60,21 +60,21 @@ export class Provider extends GlobalEntity {
   })
   totalDischarges: number;
 
-  @Column({
+  @Column('bigint', {
     nullable: true,
     name: 'average_cost_charges',
     unsigned: true,
   })
   averageCostCharges: number;
 
-  @Column({
+  @Column('bigint', {
     nullable: true,
     name: 'average_total_payments',
     unsigned: true,
   })
   averageTotalPayments: number;
 
-  @Column({
+  @Column('bigint', {
     nullable: true,
     name: 'average_medicare_payments',
     unsigned: true,
