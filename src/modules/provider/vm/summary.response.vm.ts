@@ -1,5 +1,5 @@
 import { ApiModelProperty } from '@nestjs/swagger';
-import { Provider } from '../provider.entity';
+import { ProviderSummaryTopDRG } from '../provider-summary-top-drg.entity';
 import { toCamelCase } from '../../../utils/format';
 
 export class SummaryResponseVm {
@@ -45,7 +45,7 @@ export class SummaryResponseVm {
   @ApiModelProperty({ type: String, format: 'date-time' })
   public readonly updatedAt?: Date;
 
-  constructor(provider: Provider, fields?: string) {
+  constructor(provider: ProviderSummaryTopDRG, fields?: string) {
     const clone = { ...provider };
     const props = fields
       ? String(fields)
@@ -58,10 +58,10 @@ export class SummaryResponseVm {
       'averageMedicarePayments',
     ];
 
-    delete clone['id'];
-    delete clone['createdAt'];
-    delete clone['updatedAt'];
-    delete clone['deletedAt'];
+    delete clone.id;
+    delete clone.createdAt;
+    delete clone.updatedAt;
+    delete clone.deletedAt;
 
     props.forEach(key => {
       let val = clone[key];
