@@ -15,69 +15,64 @@ export interface Blob {
   'Average Medicare Payments'?: string;
 }
 
-export class SummaryResponseVm {
+export class SummaryBlobResponseVm {
   @ApiModelPropertyOptional()
-  public readonly id?: number;
-
-  @ApiModelPropertyOptional()
-  public readonly drgDefinition?: string;
+  ['Provider Name']?: string;
 
   @ApiModelPropertyOptional()
-  public readonly providerId?: number;
+  ['Provider Street Address']?: string;
 
   @ApiModelPropertyOptional()
-  public readonly providerName?: string;
+  ['Provider City']?: string;
 
   @ApiModelPropertyOptional()
-  public readonly providerStreetAddress?: string;
+  ['Provider State']?: string;
 
   @ApiModelPropertyOptional()
-  public readonly providerCity?: string;
+  ['Provider Zip Code']?: string;
 
   @ApiModelPropertyOptional()
-  public readonly providerState?: string;
+  ['Hospital Referral Region Description']?: string;
 
   @ApiModelPropertyOptional()
-  public readonly providerZipCode?: string;
+  ['Total Discharges']?: number;
 
   @ApiModelPropertyOptional()
-  public readonly hospitalReferralRegionDescription?: string;
+  ['Average Covered Charges']?: string;
 
   @ApiModelPropertyOptional()
-  public readonly totalDischarges?: number;
+  ['Average Total Payments']?: string;
 
   @ApiModelPropertyOptional()
-  public readonly averageCostCharges?: string;
-
-  @ApiModelPropertyOptional()
-  public readonly averageTotalPayments?: string;
-
-  @ApiModelPropertyOptional()
-  public readonly averageMedicarePayments?: string;
-
-  // @ApiModelPropertyOptional({ type: String, format: 'date-time' })
-  public readonly createdAt?: Date;
-
-  // @ApiModelPropertyOptional({ type: String, format: 'date-time' })
-  public readonly updatedAt?: Date;
+  ['Average Medicare Payments']?: string;
 
   constructor(provider: ProviderSummaryTopDRG, fields?: string) {
     const clone = { ...provider };
+    const map = {
+      providerName: 'Provider Name',
+      providerStreetAddress: 'Provider Street Address',
+      providerCity: 'Provider City',
+      providerState: 'Provider State',
+      providerZipCode: 'Provider Zip Code',
+      hospitalReferralRegionDescription: 'Hospital Referral Region Description',
+      totalDischarges: 'Total Discharges',
+      averageCostCharges: 'Average Covered Charges',
+      averageTotalPayments: 'Average Total Payments',
+      averageMedicarePayments: 'Average Medicare Payments',
+    };
+
+    const allProps = Object.keys(map);
+
     const props = fields
       ? String(fields)
           .split(',')
           .map(toCamelCase)
-      : [...Object.keys(clone)];
+      : allProps;
     const asMoney = [
       'averageCostCharges',
       'averageTotalPayments',
       'averageMedicarePayments',
     ];
-
-    delete clone.topDRG;
-    delete clone.createdAt;
-    delete clone.updatedAt;
-    delete clone.deletedAt;
 
     props.forEach(key => {
       let val = clone[key];
@@ -86,7 +81,7 @@ export class SummaryResponseVm {
         val = this.toMoney(val);
       }
 
-      this[key] = val;
+      this[map[key]] = val;
     });
   }
 
