@@ -26,25 +26,26 @@ export class ProviderService {
 
     const filters: Filters = new Map();
     filters.set('total_discharges', [
-      ['>=', criteria.minDischarges],
-      ['<=', criteria.maxDischarges],
+      ['>=', 'minDischarges'],
+      ['<=', 'maxDischarges'],
     ]);
     filters.set('average_cost_charges', [
-      ['>=', criteria.minAverageCoveredCharges],
-      ['<=', criteria.maxAverageCoveredCharges],
+      ['>=', 'minAverageCoveredCharges'],
+      ['<=', 'maxAverageCoveredCharges'],
     ]);
     filters.set('average_medicare_payments', [
-      ['>=', criteria.minAverageMedicarePayments],
-      ['<=', criteria.maxAverageMedicarePayments],
+      ['>=', 'minAverageMedicarePayments'],
+      ['<=', 'maxAverageMedicarePayments'],
     ]);
     filters.set('provider_state', [['=', criteria.state]]);
 
     filters.forEach((items, field) => {
       items.forEach(item => {
-        const [operator, value] = item;
+        const [operator, prop] = item;
+        const value = criteria[prop];
         if (typeof value !== 'undefined') {
-          query.andWhere(`${field} ${operator} :${field}`, {
-            [`${field}`]: value,
+          query.andWhere(`${field} ${operator} :${prop}`, {
+            [`${prop}`]: value,
           });
         }
       });
