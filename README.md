@@ -6,6 +6,15 @@ API Url: [http://api.xcoproject.com/](http://api.xcoproject.com/)
 
 API Documentation: [http://api.xcoproject.com/swagger](http://api.xcoproject.com/swagger)
 
+The Front-end code of the XCO Project has its own repository and is deployed independently. It gives more flexibility about tooling and deployment process.
+
+## Topology
+- Database: Amazon RDS (Maria DB)
+- Host/PaaS: Heroku
+- DNS: Google Domains
+
+---
+
 ## Requirements
 
 1. Git >= 2.14.3
