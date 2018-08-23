@@ -89,13 +89,13 @@ jobs:
             DEBUG: xco:*
             DEBUG_COLORS: true
           command: yarn test:cov
-      - run:
-          name: Run e2e tests
-          environment:
-            NODE_ENV: test
-            DEBUG: xco:*
-            DEBUG_COLORS: true
-          command: yarn test:e2e
+      # - run:
+      #     name: Run e2e tests
+      #     environment:
+      #       NODE_ENV: test
+      #       DEBUG: xco:*
+      #       DEBUG_COLORS: true
+      #     command: yarn test:e2e
       - persist_to_workspace:
           root: .
           paths:

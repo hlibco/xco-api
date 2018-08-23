@@ -10,19 +10,22 @@ export class SummaryResponseVm {
   public readonly drgDefinition?: string;
 
   @ApiModelPropertyOptional()
-  public readonly name?: string;
+  public readonly providerId?: number;
 
   @ApiModelPropertyOptional()
-  public readonly streetAddress?: string;
+  public readonly providerName?: string;
 
   @ApiModelPropertyOptional()
-  public readonly city?: string;
+  public readonly providerStreetAddress?: string;
 
   @ApiModelPropertyOptional()
-  public readonly state?: string;
+  public readonly providerCity?: string;
 
   @ApiModelPropertyOptional()
-  public readonly zipCode?: string;
+  public readonly providerState?: string;
+
+  @ApiModelPropertyOptional()
+  public readonly providerZipCode?: string;
 
   @ApiModelPropertyOptional()
   public readonly hospitalReferralRegionDescription?: string;
@@ -58,7 +61,7 @@ export class SummaryResponseVm {
       'averageMedicarePayments',
     ];
 
-    delete clone.id;
+    delete clone.topDRG;
     delete clone.createdAt;
     delete clone.updatedAt;
     delete clone.deletedAt;

@@ -17,7 +17,7 @@ export class DatabaseModule {
       password: config.db.password,
       entities: [__dirname + '/../**/**.entity{.ts,.js}'],
       synchronize: config.environment === 'development' ? true : false,
-      logging: true,
+      logging: config.environment === 'development' ? true : false,
     });
   }
 }

@@ -19,33 +19,33 @@ export class ProviderSummaryTopDRG extends GlobalEntity {
     nullable: true,
     name: 'provider_name',
   })
-  name: string;
+  providerName: string;
 
   @Column({
     nullable: true,
     name: 'provider_street_address',
   })
-  streetAddress: string;
+  providerStreetAddress: string;
 
   @Column({
     nullable: true,
     name: 'provider_city',
   })
-  city: string;
+  providerCity: string;
 
   @Column('char', {
     nullable: true,
     name: 'provider_state',
     length: 2,
   })
-  state: string;
+  providerState: string;
 
   @Column({
     nullable: true,
     name: 'provider_zip_code',
     length: 6,
   })
-  zipCode: string;
+  providerZipCode: string;
 
   @Column({
     nullable: true,

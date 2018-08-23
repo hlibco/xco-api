@@ -26,7 +26,7 @@ $ yarn install
 
 ```sh
 HOSTNAME=localhost
-PORT=3000
+PORT=3009
 
 # Database
 # --------
@@ -85,7 +85,6 @@ Before deploying the application to production, follow the steps:
 There is a **CI/CD** pipeline configured using [`CircleCI`]('https://circleci.com'). Whenever a new commit is pushed to the `master` branch, the pipeline runs the following:
 
 - unit tests
-- e2e tests
 - lint
 - build
 - deploy (Heroku)
@@ -104,7 +103,7 @@ The CI/CD pipeline is configured to deploy to Heroku.
 
 ## API Documentation
 
-Navigate to `http://localhost:3000/swagger` to see the API Documentation using Open API (Swagger).
+Navigate to `http://localhost:3009/swagger` to see the API Documentation using Open API (Swagger).
 
 ## Authentication
 
